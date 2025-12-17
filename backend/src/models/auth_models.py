@@ -1,0 +1,30 @@
+from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
+from backend.src.services.neon_db import Base
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False, unique=True)
+    emailVerified = Column(Boolean, nullable=False)
+    image = Column(String, nullable=True)
+    createdAt = Column(DateTime, nullable=False)
+    updatedAt = Column(DateTime, nullable=False)
+
+    sessions = relationship("Session", back_populates="user")
+
+class Session(Base):
+    __tablename__ = "session"
+
+    id = Column(String, primary_key=True)
+    expiresAt = Column(DateTime, nullable=False)
+    token = Column(String, nullable=False, unique=True)
+    createdAt = Column(DateTime, nullable=False)
+    updatedAt = Column(DateTime, nullable=False)
+    ipAddress = Column(String, nullable=True)
+    userAgent = Column(String, nullable=True)
+    userId = Column(String, ForeignKey("user.id"), nullable=False)
+
+    user = relationship("User", back_populates="sessions")

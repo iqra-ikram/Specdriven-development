@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ingestion API",
+    "version": "1.0.0",
+    "description": "API for ingesting content into the RAG system knowledge base."
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Default server"
+    }
+  ],
+  "paths": {
+    "/ingest_content": {
+      "post": {
+        "summary": "Ingest processed Docusaurus content chunks into the RAG system.",
+        "description": "This endpoint is typically used by an internal script or CI/CD pipeline to update the chatbot's knowledge base. Requires an API key for authentication.",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "document_id": {
+                    "type": "string",
+                    "description": "A unique identifier for the source Docusaurus document (e.g., Markdown file path)."
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "The raw text content of the chunk to be embedded."
+                  },
+                  "source_url": {
+                    "type": "string",
+                    "description": "The absolute URL to the Docusaurus page where the chunk originated."
+                  },
+                  "section_title": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Optional: The title of the closest heading preceding the chunk."
+                  }
+                },
+                "required": ["document_id", "content", "source_url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Content chunk ingested successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": ["success", "error"]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: Missing or invalid API key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error during ingestion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "name": "X-API-Key",
+        "in": "header"
+      }
+    }
+  }
+}

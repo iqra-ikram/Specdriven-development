@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "فزیکل اے آئی اور ہیومنائڈ روبوٹکس",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "میری سائٹ کا لوگو",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Tutorial": {
+    "message": "ٹیوٹوریل",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.About Me": {
+    "message": "میرے بارے میں",
+    "description": "Navbar item with label About Me"
+  },
+  "item.label.GitHub": {
+    "message": "گٹ ہب",
+    "description": "Navbar item with label GitHub"
+  }
+}
