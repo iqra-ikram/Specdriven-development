@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkdocusaurus_root=globalThis.webpackChunkdocusaurus_root||[]).push([[5358],{6951:o=>{o.exports=JSON.parse('{"metadata":{"permalink":"/Specdriven-development/ur/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
